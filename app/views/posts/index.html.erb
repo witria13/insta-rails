@@ -20,7 +20,10 @@
   padding-top: 0px;
 }
 
-
+.count{
+  float: right;
+  margin-right: -12px;
+}
 
 img {
   margin-left: 10px;
@@ -61,6 +64,10 @@ span{
           <%= image_tag(post.image.url, alt: 'Image') if post.image? %> </br> </br>
 
           <span><%= post.caption %></span><br/><br/>
+
+          <div class="count">
+          <%= post.comments.count %> komentar
+        </div>
 
           <a href="/">Like</a> |&nbsp;
 
