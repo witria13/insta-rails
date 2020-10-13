@@ -2,30 +2,23 @@ class CommentsController < ApplicationController
 
 	
 	def create
-		@thread = ForumThread.find(params[:forum_thread_id])
-		@post 	= @thread.forum_posts.new(resource_params)
+		@post = Post.find(params[:post_id])
+		@comment = Comment.new(resource_params)
 
-		# @post.forum_thread = @thread
-		@post.user = current_user
+		@comment.post = @post
+		@comment.user = User.first
 
-		if @post.save
-			redirect_to forum_thread_path(@thread) #forum_threads#show
+		if @comment.save
+			redirect_to post_path(@post) #forum_threads#show
 		else
-			render 'forum_threads/show'
+			render 'post/show'
 		end
 	end
-
-	def destroy
-		@post = ForumPost.find(params[:id])
-    	@post.destroy
-    	flash[:notice]  = "Post dengan id #{params[:id]} telah dihapus"
-    	redirect_to root_path
-  	end 
 
 	private
 
 	def resource_params
-		params.require(:forum_post).permit(:content)
+		params.require(:comment).permit(:comment_text)
 		
 	end
 end

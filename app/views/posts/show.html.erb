@@ -74,7 +74,22 @@ span{
 		<% else %>
 			<div style="text-align: center">
 				Jadilah yang pertama melakukan komentar 
-			</div>
+			</div></br>
+      <% end %>
+
+      <%= form_for [@post, @comment] do |f| %>
+
+      	<div class="instagram">
+        <div class="wrap">
+		      	<div>
+		    		<%= f.label :comment_text %>
+		    		<%= f.text_area :comment_text %>
+		  		</div></br>
+
+
+		 		<%= f.submit %>
+		 	</div>
+		 </div>
       <% end %>
 
     
