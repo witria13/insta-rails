@@ -1,0 +1,70 @@
+<style type="text/css">
+.instagram {
+  overflow: hidden;
+  background-color: #DB7093;
+}
+
+.menu {
+  background-color: #87CEEB; 
+  text-align: center;
+  padding-bottom: 20px; 
+}
+
+.instagram .wrap {
+  margin-left: auto;
+  background: #ADD8E6;
+  margin-right: auto;
+  max-width: 500px;
+  padding-top: 0px;
+}
+
+img {
+  margin-left: 10px;
+  padding: 0px;
+  width: 400px;
+}
+
+caption{
+  margin: 20px;
+}
+
+p{
+  padding-top: 2px;
+}
+
+   span{
+    margin: 0;
+   }
+</style>
+
+    <body>
+
+        <div class="menu">
+        <a href="/">Home</a> |&nbsp;
+        <a href="#">Profile</a> |&nbsp;
+        <a href="/posts/new">New Post</a>
+      
+      </div>
+
+        <% @posts.each do |post| %>
+        
+        <div class="instagram">
+        <div class="wrap">
+    
+          <b><p><%= post.user.name %></p></b>
+
+          <%= image_tag(post.image.url, alt: 'Image') if post.image? %> </br> </br>
+
+          <span><%= post.caption %></span><br/><br/>
+
+          <a href="/">Like</a> |&nbsp;
+
+          <%= link_to "Comment", post_path(post) %> |&nbsp;
+
+          <a href="/posts/new">Share</a>
+          <hr>
+        </div>
+      </div>
+      <%end%>
+    </body>
+</html>

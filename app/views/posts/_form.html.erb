@@ -1,0 +1,17 @@
+
+
+
+<%= form_for post do |f| %>
+  <div>
+    <%= f.label :caption %>
+    <%= f.text_field :caption %>
+  </div></br>
+
+ 
+  <div>
+    <%= f.label :image %>
+    <%= f.file_field :image %> 
+  </div></br>
+ 
+  <%= f.submit %>
+<% end %>
