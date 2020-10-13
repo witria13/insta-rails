@@ -1,7 +1,82 @@
-<%= link_to 'All posts', posts_path %>
-<h1><%= @post.caption %></h1>
- 
-<%= image_tag(@post.image.url, alt: 'Image') if @post.image? %>
- 
-<p><%= @post.body %></p>
- 
+<style type="text/css">
+.instagram {
+  overflow: hidden;
+  background-color: #FFEFD5;
+}
+
+.menu {
+  background-color: #F08080; 
+  text-align: center;
+  padding-bottom: 30px; 
+  box-sizing: border-box;
+  font-size: 25px;
+}
+
+
+.instagram .wrap {
+  margin-left: auto;  
+  margin-right: auto;
+  max-width: 500px;
+  padding-top: 0px;
+}
+
+
+
+img {
+  margin-left: 10px;
+  padding: 0px;
+  width: 400px;
+}
+
+
+caption{
+  margin: 20px;
+}
+
+p{
+  padding-top: 2px;
+}
+
+span{
+    margin: 0;
+}
+
+</style>
+
+    <body>
+
+        <div class="instagram">
+        <div class="wrap">
+    
+          <b><p><%= @post.user.name %></p></b>
+
+          <%= image_tag(@post.image.url, alt: 'Image') if @post.image? %> </br> </br>
+
+          <span><%= @post.caption %></span><br/><br/>
+
+          <hr>
+        </div>
+      </div>
+
+      <% if @post.comments.any? %>
+		  <% @post.comments.each do |c| %>
+		      	  <div class="instagram">
+		       	  <div class="wrap">
+		    
+		          <b><p><%= c.user.name %></p></b>
+
+		          <span><%= c.comment_text %></span><br/><br/>
+
+		          <hr>
+		        </div>
+		      </div>	
+		      <% end %>
+		<% else %>
+			<div style="text-align: center">
+				Jadilah yang pertama melakukan komentar 
+			</div>
+      <% end %>
+
+    
+    </body>
+</html>
