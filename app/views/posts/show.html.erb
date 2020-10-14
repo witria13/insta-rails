@@ -37,6 +37,8 @@ span{
 
     <body>
 
+      <button></button>
+
         <div class="instagram">
         <div class="wrap">
     
@@ -53,7 +55,7 @@ span{
       </div>
 
       <% if @post.comments.any? %>
-		  <% @post.comments.each do |c| %>
+		  <% @posts.each do |c| %>
 		      	  <div class="instagram">
 		       	  <div class="wrap">
 		    
@@ -71,6 +73,7 @@ span{
 			</div></br>
       <% end %>
 
+       <% if user_signed_in? %>
       <%= form_for [@post, @comment] do |f| %>
 
       	<div class="instagram">
@@ -85,7 +88,7 @@ span{
 		 	</div>
 		 </div>
       <% end %>
+      <% end %>
 
-    
     </body>
 </html>

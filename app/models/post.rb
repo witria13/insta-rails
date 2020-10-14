@@ -4,4 +4,6 @@ class Post < ApplicationRecord
 	has_many	:likes, dependent: :destroy
 
 	mount_uploader :image, ImageUploader
+
+	validates :image, presence: true
 end

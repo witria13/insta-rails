@@ -81,18 +81,23 @@
   <div class="instarails">
  
     <ul>
+
       <li><b><a style="font-size: 30px;">InstaRails</a></b></li>
-      <li class="dropdown" style="float: right; font-size: 15px;"><a href="#">
-        <%= user_signed_in? ? current_user.name : 'halo guest' %> </a></a>
+
+      <li class="dropdown" style="float: right; font-size: 15px;">
+          <a href="#"><%= user_signed_in? ? current_user.name : 'halo guest' %></a>
+
         <ul class="isi-dropdown">
           <% if user_signed_in? %>
+              <li><a href="/posts/new">New Post</a></li>
               <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
-            <% else %>
+          <% else %>
               <li><%= link_to 'Daftar', new_user_registration_path %></li>
               <li><%= link_to 'Login', new_user_session_path %></li>
-            <% end %>
+          <% end %>
         </ul>
       </li>
+
     </ul>
  
   </div>
