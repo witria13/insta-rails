@@ -2,6 +2,11 @@
 .instagram {
   overflow: hidden;
   background-color: #FFEFD5;
+  width: 600px;
+     margin: 10px auto;
+     border: 2px solid black;
+     box-sizing: border-box;
+     min-height: 300px;
 }
 
 .menu {
@@ -65,14 +70,14 @@ span{
 
           <span><%= post.caption %></span><br/><br/>
 
-          <div class="count">
-          <%= post.comments.count %> komentar
-        </div>
-
-          <a href="/">Like</a> |&nbsp;
+          <%= link_to 'Like', post_likes_path(post), method: :post %>
 
           <%= link_to "Comment", post_path(post) %> &nbsp;
-
+          </br>
+          <%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%>
+          </br>
+          <%= post.comments.count %> komentar
+         
           <hr>
         </div>
       </div>
