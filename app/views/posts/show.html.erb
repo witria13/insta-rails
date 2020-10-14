@@ -39,7 +39,9 @@ span{
 
         <div class="instagram">
         <div class="wrap">
-    
+          </br>
+          <button><%= link_to "Kembali", posts_path %> &nbsp;</button>
+
           <b><p><%= @post.user.name %></p></b>
 
           <%= image_tag(@post.image.url, alt: 'Image') if @post.image? %> </br> </br>
