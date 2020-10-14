@@ -57,7 +57,13 @@ span{
             <a href="#" class="profile">Profile</a> |&nbsp;
             <a href="/posts/new">New Post</a>
       
-      </div>
+        </div>
+
+        <% if flash[:notice].present? %>
+          <%= flash[:notice] %>
+        <% end %>
+      
+
 
         <% @posts.each do |post| %>
         
@@ -70,7 +76,12 @@ span{
 
           <span><%= post.caption %></span><br/><br/>
 
-          <%= link_to 'Like', post_likes_path(post), method: :post %>
+          <% pre_like = post.likes.find { |like| like.user_id == User.first.id} %>
+          <% if pre_like %>
+            <%= link_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
+          <% else %>
+            <%= link_to 'Like', post_likes_path(post), method: :post %>
+          <% end %>
 
           <%= link_to "Comment", post_path(post) %> &nbsp;
           </br>
