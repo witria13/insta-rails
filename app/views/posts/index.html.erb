@@ -70,7 +70,8 @@ span{
             <%= link_to 'Like', post_likes_path(post), method: :post %>
           <% end %>
 
-          <%= link_to "Comment", post_path(post) %> &nbsp;
+          <%= link_to "Comment", post_path(post) %> 
+          <%= link_to "Save", posts_path %> &nbsp;
           </br>
           <%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%>
           </br>
