@@ -1,17 +1,16 @@
 class CommentsController < ApplicationController
 
-	
 	def create
 		@post = Post.find(params[:post_id])
 		@comment = Comment.new(resource_params)
 
 		@comment.post = @post
-		@comment.user = User.first
+		@comment.user = current_user
 
 		if @comment.save
-			redirect_to post_path(@post) #forum_threads#show
+			redirect_to post_path(@post)
 		else
-			render 'post/show'
+			redirect_to post_path(@post)
 		end
 	end
 

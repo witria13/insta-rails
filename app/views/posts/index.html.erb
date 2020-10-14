@@ -9,14 +9,6 @@
      min-height: 300px;
 }
 
-.menu {
-  background-color: #F08080; 
-  text-align: center;
-  padding-bottom: 30px; 
-  box-sizing: border-box;
-  font-size: 25px;
-}
-
 
 .instagram .wrap {
   margin-left: auto;  
@@ -53,12 +45,6 @@ span{
 
     <body>
 
-        <div class="menu">
-            <a href="#" class="profile">Profile</a> |&nbsp;
-            <a href="/posts/new">New Post</a>
-      
-        </div>
-
         <% if flash[:notice].present? %>
           <%= flash[:notice] %>
         <% end %>
@@ -69,14 +55,15 @@ span{
         
         <div class="instagram">
         <div class="wrap">
-    
           <b><p><%= post.user.name %></p></b>
 
           <%= image_tag(post.image.url, alt: 'Image') if post.image? %> </br> </br>
 
           <span><%= post.caption %></span><br/><br/>
 
-          <% pre_like = post.likes.find { |like| like.user_id == User.first.id} %>
+
+        <% if user_signed_in? %>
+          <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
           <% if pre_like %>
             <%= link_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
           <% else %>
@@ -88,7 +75,7 @@ span{
           <%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%>
           </br>
           <%= post.comments.count %> komentar
-         
+         <% end %>
           <hr>
         </div>
       </div>
