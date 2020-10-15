@@ -18,6 +18,10 @@
     <%= f.label :image %>
     <%= f.file_field :image %> 
   </div></br>
- 
+
+  <div>
+    <%= f.label "Nyakakan Komentar" %>
+    <%= f.check_box :active_comment %> <br />
+  </div>
   <%= f.submit %>
 <% end %>
