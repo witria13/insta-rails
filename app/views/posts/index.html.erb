@@ -48,12 +48,12 @@ span{
         <% if flash[:notice].present? %>
           <%= flash[:notice] %>
         <% end %>
-      
-
-
+    
+          </br>
+          <h1 style="text-align: center;">Homepage</h1>
         <% @posts.each do |post| %>
-        
         <div class="instagram">
+
         <div class="wrap">
           <b><p><%= post.user.username %></p></b>
 
@@ -61,21 +61,33 @@ span{
 
           <span><%= post.caption %></span><br/><br/>
 
+          <!-- LIKE -->
+          <% if user_signed_in? %>
+              <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
+              
+              <% if pre_like %>
+                  <%= link_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
+              <% else %>
+                  <%= link_to 'Like', post_likes_path(post), method: :post %>
+              <% end %>
 
-        <% if user_signed_in? %>
-          <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
-          <% if pre_like %>
-            <%= link_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
-          <% else %>
-            <%= link_to 'Like', post_likes_path(post), method: :post %>
-          <% end %>
+              <!-- COMMENT -->
+              <%= link_to "Comment", post_path(post) %> 
 
-          <%= link_to "Comment", post_path(post) %> 
-          <%= link_to "Save", posts_path %> &nbsp;
-          </br>
-          <%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%>
-          </br>
-          <%= post.comments.count %> komentar
+              <!-- FAVORITE -->
+              <% if favorite = post.favorites.find { |favorite| favorite.user_id == current_user.id} %>
+                  <%= link_to 'Unfavorite', post_favorite_path(post,favorite), method: :delete %>           
+              <% else %>
+                  <%= link_to 'Favorite', post_favorites_path(post), method: :post %>
+              <% end %>
+              </br> 
+
+              <!-- JUMLAH LIKE -->
+              <%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%>
+              </br>
+
+              <!-- JUMLAH KOMENTAR -->
+              <%= post.comments.count %> komentar
          <% end %>
           <hr>
         </div>

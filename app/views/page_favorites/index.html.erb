@@ -1,0 +1,77 @@
+<style type="text/css">
+	.instagram {
+	  overflow: hidden;
+	  background-color: #FFEFD5;
+	  width: 600px;
+	  margin: 10px auto;
+	  border: 2px solid black;
+	  box-sizing: border-box;
+	  min-height: 300px;
+	}
+
+
+	.instagram .wrap {
+	  margin-left: auto;  
+	  margin-right: auto;
+	  max-width: 500px;
+	  padding-top: 0px;
+	}
+
+	.atas {
+		text-align: center;
+	}
+
+	img {
+	  margin-left: 10px;
+	  padding: 0px;
+	  width: 400px;
+	}
+</style>
+	
+	<div class="atas">
+		<h1>Favorites</h1>
+		<button><%= link_to "Homepage", posts_path %> &nbsp;</button>
+	</div>
+
+	<div class="instagram">
+		<div class="wrap"></br>
+		
+		<% if @favorites.any? %>
+			<% @favorites.each do |f| %>
+
+			 	<b><p><%= f.user.username %></p></b>
+
+		        <%= image_tag(f.post.image.url, alt: 'Image') if f.post.image? %> </br> </br>
+
+		        <span><%= f.post.caption %></span><br/><br/>
+
+		        <% if user_signed_in? %>
+		        	<!-- LIKE -->
+		            <% pre_like = f.post.likes.find { |like| like.user_id == current_user.id} %>
+		            	<% if pre_like %>
+		                	<%= link_to 'Unlike', post_like_path(f.post, pre_like), method: :delete %>
+		            	<% else %>
+		                  	<%= link_to 'Like', post_likes_path(f.post), method: :post %>
+		             <% end %>
+
+		              <!-- COMMENT -->
+		              <%= link_to "Comment", post_path(f.post) %> 
+
+		              <!-- FAVORITE -->
+		              <% if favorite = f.post.favorites.find { |favorite| favorite.user_id == current_user.id} %>
+		                  <%= link_to 'Unfavorite', post_favorite_path(f.post, favorite), method: :delete %>
+		              <% end %>
+		              </br>
+
+		              <!-- JUMLAH LIKE -->
+		              <%= f.post.likes.count %> <%= (f.post.likes.count) == 1 ? 'Like' : 'Likes'%>
+		              </br>
+
+		              <!-- JUMLAH KOMENTAR -->
+		              <%= f.post.comments.count %> komentar
+		        <% end %>
+		        <hr>
+			<% end %>
+		<% else %></br></br></br></br></br>
+			<p style="text-align: center;">tidak ada post yang difavorite</p>
+		<% end %>
