@@ -1,7 +1,6 @@
 <style type="text/css">
 .instagram {
   overflow: hidden;
-  background-color: #FFEFD5;
   width: 600px;
      margin: 10px auto;
      border: 2px solid black;
@@ -26,19 +25,7 @@ img {
   margin-left: 10px;
   padding: 0px;
   width: 400px;
-}
-
-
-caption{
-  margin: 20px;
-}
-
-p{
-  padding-top: 2px;
-}
-
-span{
-    margin: 0;
+  height: auto;
 }
 
 </style>
@@ -63,13 +50,7 @@ span{
 
           <!-- LIKE -->
           <% if user_signed_in? %>
-              <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
-              
-              <% if pre_like %>
-                  <%= link_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
-              <% else %>
-                  <%= link_to 'Like', post_likes_path(post), method: :post %>
-              <% end %>
+              <%= link_to "#{current_user.likes.find_by(post_id: post.id) ? 'unlike' : 'like'}", like_post_path(post) %></a>
 
               <!-- COMMENT -->
               <% if post.active_comment %>
