@@ -2,6 +2,8 @@ class PostsController < ApplicationController
     
    before_action  :authenticate_user! 
 
+  POSTS_PER_PAGE    = 5
+
   def index
     @posts = Post.all
   end
@@ -15,7 +17,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
   end
- 
+  
   def create
     @post = Post.new(post_params)
     @post.user = current_user
@@ -27,8 +29,19 @@ class PostsController < ApplicationController
     end
   end
  
-  
- 
+
+  def like_toogle
+    @post = Post.find(params[:id])
+    already_like = current_user.likes.find_by(post_id: @post.id)
+
+    if already_like
+      @post.likes.find_by(user: current_user).destroy
+    else
+       @post.likes.create(user: current_user)
+     end
+     redirect_to posts_path
+  end
+
   private
  
   def post_params
