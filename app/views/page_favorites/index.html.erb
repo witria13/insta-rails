@@ -47,13 +47,8 @@
 
 		        <% if user_signed_in? %>
 		        	<!-- LIKE -->
-		            <% pre_like = f.post.likes.find { |like| like.user_id == current_user.id} %>
-		            	<% if pre_like %>
-		                	<%= link_to 'Unlike', post_like_path(f.post, pre_like), method: :delete %>
-		            	<% else %>
-		                  	<%= link_to 'Like', post_likes_path(f.post), method: :post %>
-		             <% end %>
-
+					<%= link_to "#{current_user.likes.find_by(post_id: f.post.id) ? 'unlike' : 'like'}", like_post_path(f.post) %></a>
+					
 		              <!-- COMMENT -->
 		              <%= link_to "Comment", post_path(f.post) %> 
 
